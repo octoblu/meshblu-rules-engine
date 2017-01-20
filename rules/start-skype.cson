@@ -17,6 +17,7 @@ rules:
       params:
         device: "{{msg.genisys.activitiesDeviceUuid}}"
         operation: 'update'
+        uuid: '{{activities-device}}'
         data:
           $set:
             "genisys.activities.startSkype":
@@ -30,6 +31,7 @@ noevents: [
   params:
     device: "{{msg.genisys.activitiesDeviceUuid}}"
     operation: 'update'
+    uuid: '{{activities-device}}'
     data:
       $set:
         "genisys.activities.startSkype.people": []
