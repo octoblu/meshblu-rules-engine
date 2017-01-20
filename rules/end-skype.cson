@@ -1,14 +1,17 @@
 conditions:
-  fact: 'genisys.inSkype'
-  operator: 'equal'
-  value: true
+  all: [{
+    fact: 'device'
+    operator: 'equal'
+    value: true
+    path: '.genisys.inSkype'
+  }]
 event:
   type: 'meshblu'
-  operation: 'update'
-  device: 'activities-device'
   params:
-    $set: 'genisys.activities.endSkype':
-      title: 'End Skype'
-      jobType: 'end-skype'
-      meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
-      people: '{{msg.genisys.peopleInRoom}}'
+    operation: 'update'
+    data:
+      $set: 'genisys.activities.endSkype':
+        title: 'End Skype'
+        jobType: 'end-skype'
+        meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
+        people: '{{msg.genisys.peopleInRoom}}'

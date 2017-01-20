@@ -9,20 +9,12 @@ class MeshbluRulesEngine
   addRule: (rule) =>
     @engine.addRule rule
 
-  run: (facts, callback) =>
-    flatFacts = @_flattenFacts(facts)
+  run: (device, callback) =>    
     @engine
-      .run flatFacts
+      .run {device}
       .then (events) => callback null, events
       .catch (error) => callback error
 
-  _flattenFacts: (facts, prefix='', flatFacts={}) =>
-    _.each facts, (fact, key) =>
-      unless _.isPlainObject fact
-        flatFacts["#{prefix}#{key}"] = fact
-        return true
-      @_flattenFacts fact, "#{prefix}#{key}.", flatFacts
-
-    flatFacts
+    return null
 
 module.exports = MeshbluRulesEngine
