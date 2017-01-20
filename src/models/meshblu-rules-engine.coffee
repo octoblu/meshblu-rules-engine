@@ -9,7 +9,10 @@ class MeshbluRulesEngine
   addRule: (rule) =>
     @engine.addRule rule
 
-  run: (device, callback) =>    
+  addRules: (rules) =>
+    _.each rules, @addRule
+
+  run: (device, callback) =>
     @engine
       .run {device}
       .then (events) => callback null, events
