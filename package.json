@@ -1,0 +1,57 @@
+{
+  "name": "meshblu-rules-engine",
+  "version": "1.0.0",
+  "description": "Rules for transforming devices in Meshblu based off of events",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "coverage": "nyc npm test",
+    "mocha:json": "mocha --reporter json > coverage/mocha.json",
+    "test:watch": "mocha -w -R mocha-multi --reporter-options spec=-,mocha-osx-reporter=-"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/octoblu/meshblu-rules-engine.git"
+  },
+  "keywords": [
+    "Meshblu",
+    "Octoblu",
+    "IoT",
+    "Rules",
+    "Rulez"
+  ],
+  "author": "Octoblu, Inc <serveradmin@octoblu.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/octoblu/meshblu-rules-engine/issues"
+  },
+  "homepage": "https://github.com/octoblu/meshblu-rules-engine#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-subset": "^1.4.0",
+    "coffee-script": "^1.12.2",
+    "env-test": "^1.0.0",
+    "mocha": "^3.2.0",
+    "mocha-multi": "^0.10.0",
+    "mocha-osx-reporter": "^0.1.2",
+    "nyc": "^10.1.2",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0"
+  },
+  "nyc": {
+    "cache": true,
+    "reporter": [
+      "text-summary",
+      "lcov",
+      "json"
+    ],
+    "extension": [
+      ".coffee"
+    ]
+  },
+  "dependencies": {
+    "fs-cson": "^0.3.2",
+    "json-rules-engine": "^1.3.1",
+    "lodash": "^4.17.4"
+  }
+}

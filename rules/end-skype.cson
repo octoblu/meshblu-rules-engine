@@ -1,0 +1,14 @@
+conditions:
+  fact: 'genisys.inSkype'
+  operator: 'equal'
+  value: true
+event:
+  type: 'meshblu'
+  operation: 'update'
+  device: 'activities-device'
+  params:
+    $set: 'genisys.activities.endSkype':
+      title: 'End Skype'
+      jobType: 'end-skype'
+      meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
+      people: '{{msg.genisys.peopleInRoom}}'
