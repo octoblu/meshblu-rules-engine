@@ -12,7 +12,7 @@ class MeshbluRulesEngine
       .run {device}
       .then (events) =>
         return callback null, events unless _.isEmpty events
-        return callback null, @config.noevents
+        return callback null, @config.noevents || []
 
       .catch (error) => callback error
 

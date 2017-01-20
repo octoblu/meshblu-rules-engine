@@ -1,0 +1,21 @@
+rules:
+  addPeopleInRoom:
+    conditions:
+      all: [{
+        fact: 'device'
+        operator: 'exists'
+        value: true
+      }]
+    event:
+      type: 'meshblu'
+      params:
+        operation: 'update'
+        uuid: '{{activities-device}}'
+        data:
+          $set: 'genisys.activities.endMeeting':
+            title: 'End Meeting'
+            jobType: 'end-meeting'
+            meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
+            data:
+              meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
+            people: '{{msg.genisys.people.byAttendee.isAttendee}}'
