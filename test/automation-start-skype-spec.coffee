@@ -1,10 +1,11 @@
 MeshbluRulesEngine    = require '../src/models/meshblu-rules-engine'
-StartSkypeRules       = require '../rules/start-skype.cson'
+StartSkypeConfig      = require '../rules/start-skype.cson'
+{rules, noevents}      = StartSkypeConfig
 
 describe 'Start Skype', ->
   beforeEach ->
-    @sut = new MeshbluRulesEngine
-    @sut.addRules StartSkypeRules
+
+    @sut = new MeshbluRulesEngine StartSkypeConfig
 
   describe 'when the room is not in skype and has a currentMeeting', ->
     beforeEach (done) ->
@@ -16,7 +17,7 @@ describe 'Start Skype', ->
         done error
 
     it 'should return results', ->
-      expect(@results).to.deep.equal [StartSkypeRules.add.event]
+      expect(@results).to.deep.equal [rules.add.event]
 
   describe 'when the room is in skype', ->
 
@@ -31,7 +32,7 @@ describe 'Start Skype', ->
           done error
 
       it 'should return results', ->
-        expect(@results).to.deep.equal [StartSkypeRules.remove.event]
+        expect(@results).to.deep.equal noevents
 
     describe ' and has no currentMeeting', ->
       beforeEach (done) ->
@@ -43,4 +44,4 @@ describe 'Start Skype', ->
           done error
 
       it 'should return results', ->
-        expect(@results).to.deep.equal [StartSkypeRules.remove.event]
+        expect(@results).to.deep.equal noevents

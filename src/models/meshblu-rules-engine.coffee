@@ -3,19 +3,17 @@ _ = require 'lodash'
 
 
 class MeshbluRulesEngine
-  constructor: ->
+  constructor: (@config)->
     @engine = new Engine
-
-  addRule: (rule) =>
-    @engine.addRule rule
-
-  addRules: (rules) =>
-    _.each rules, @addRule
+    _.each @config.rules, (rule) => @engine.addRule rule
 
   run: (device, callback) =>
     @engine
       .run {device}
-      .then (events) => callback null, events
+      .then (events) =>
+        return callback null, events unless _.isEmpty events
+        return callback null, @config.noevents
+
       .catch (error) => callback error
 
     return null
