@@ -16,13 +16,13 @@ rules:
       type: 'meshblu'
       params:
         operation: 'update'
-        uuid: '{{activities-device}}'
+        uuid: '{{genisys.devices.activities}}'
         data:
           $set: 'genisys.activities.endSkype':
             title: 'End Skype'
             jobType: 'end-skype'
-            meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
-            people: '{{msg.genisys.peopleInRoom}}'
+            people: '{{genisys.peopleInRoom}}'
+
   addPeopleByAttendee:
     conditions:
       all: [{
@@ -40,18 +40,18 @@ rules:
       type: 'meshblu'
       params:
         operation: 'update'
-        uuid: '{{activities-device}}'
+        uuid: '{{genisys.devices.activities}}'
         data:
           $set: 'genisys.activities.endSkype':
             title: 'End Skype'
             jobType: 'end-skype'
-            meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
-            people: '{{msg.genisys.people.byAttendee.isAttendee}}'
+            meetingId: '{{genisys.currentMeeting.meetingId}}'
+            people: '{{genisys.people.byAttendee.isAttendee}}'
 noevents: [
   type: 'meshblu'
   params:
     operation: 'update'
-    uuid: '{{activities-device}}'
+    uuid: '{{genisys.devices.activities}}'
     data:
       'genisys.activities.endSkype.people': []
 ]

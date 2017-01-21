@@ -15,23 +15,21 @@ rules:
     event:
       type: 'meshblu'
       params:
-        device: "{{msg.genisys.activitiesDeviceUuid}}"
+        uuid: "{{genisys.devices.activities}}"
         operation: 'update'
-        uuid: '{{activities-device}}'
         data:
           $set:
             "genisys.activities.startSkype":
               title: "Start Skype",
               jobType: "start-skype",
-              meetingId: "{{msg.genisys.currentMeeting.meetingId}}",
-              people: "{{msg.genisys.people.byAttendee.isAttendee}}"
+              meetingId: "{{genisys.currentMeeting.meetingId}}",
+              people: "{{genisys.people.byAttendee.isAttendee}}"
 
 noevents: [
   type: 'meshblu'
   params:
-    device: "{{msg.genisys.activitiesDeviceUuid}}"
+    uuid: "{{genisys.devices.activities}}"
     operation: 'update'
-    uuid: '{{activities-device}}'
     data:
       $set:
         "genisys.activities.startSkype.people": []
