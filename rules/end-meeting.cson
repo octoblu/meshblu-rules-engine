@@ -10,12 +10,12 @@ rules:
       type: 'meshblu'
       params:
         operation: 'update'
-        uuid: '{{activities-device}}'
+        uuid: '{{genisys.devices.activities}}'
         data:
           $set: 'genisys.activities.endMeeting':
             title: 'End Meeting'
             jobType: 'end-meeting'
-            meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
+            meetingId: '{{genisys.currentMeeting.meetingId}}'
             data:
-              meetingId: '{{msg.genisys.currentMeeting.meetingId}}'
-            people: '{{msg.genisys.people.byAttendee.isAttendee}}'
+              meetingId: '{{genisys.currentMeeting.meetingId}}'
+            people: '{{genisys.people.byAttendee.isAttendee}}'

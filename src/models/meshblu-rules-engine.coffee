@@ -21,6 +21,6 @@ class MeshbluRulesEngine
     _.map events, (event) => christacheio event, device
 
   _existentialOperator: (factValue, jsonValue) =>
-    return (factValue == undefined) == jsonValue
+    return (factValue != undefined) == jsonValue
 
 module.exports = MeshbluRulesEngine

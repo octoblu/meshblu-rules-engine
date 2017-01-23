@@ -2,7 +2,7 @@ MeshbluRulesEngine  = require '../src/models/meshblu-rules-engine'
 EndMeeting          = require '../rules/end-meeting.cson'
 {rules}             = EndMeeting
 
-xdescribe 'End Meeting', ->
+describe 'End Meeting', ->
   beforeEach ->
 
     @sut = new MeshbluRulesEngine EndMeeting
@@ -11,10 +11,30 @@ xdescribe 'End Meeting', ->
     beforeEach (done) ->
       room =
         genisys:
-          currentMeeting: 'abra-cadabra'
+          devices:
+            activities: 'some-activities-device-uuid'
+          inSkype: true
+          currentMeeting:
+            meetingId: 'another-meeting-uuid'
+          people:
+            byAttendee:
+              isAttendee: [ 'conference-people' ]
 
       @sut.run room, (error, @results) =>
         done error
 
     it 'should return results', ->
-      expect(@results).to.deep.equal [rules.addPeopleInRoom.event]
+      expect(@results).to.deep.equal [
+        type: 'meshblu'
+        params:
+          operation: 'update'
+          uuid: 'some-activities-device-uuid'
+          data:
+            $set: 'genisys.activities.endMeeting':
+              title: 'End Meeting'
+              jobType: 'end-meeting'
+              meetingId: 'another-meeting-uuid'
+              data:
+                meetingId: 'another-meeting-uuid'
+              people: [ 'conference-people' ]
+      ]

@@ -1,6 +1,6 @@
 {
   "name": "meshblu-rules-engine",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Rules for transforming devices in Meshblu based off of events",
   "main": "index.js",
   "scripts": {

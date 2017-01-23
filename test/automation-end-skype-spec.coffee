@@ -2,7 +2,7 @@ MeshbluRulesEngine  = require '../src/models/meshblu-rules-engine'
 EndSkypeConfig      = require '../rules/end-skype.cson'
 {rules, noevents}   = EndSkypeConfig
 
-xdescribe 'End Skype', ->
+describe 'End Skype', ->
   beforeEach ->
 
     @sut = new MeshbluRulesEngine EndSkypeConfig
@@ -69,9 +69,18 @@ xdescribe 'End Skype', ->
       room =
         genisys:
           inSkype: false
+          devices:
+            activities: 'activities-device-uuid'
 
       @sut.run room, (error, @results) =>
         done error
 
     it 'should return results', ->
-      expect(@results).to.deep.equal noevents
+      expect(@results).to.deep.equal [
+        type: 'meshblu'
+        params:
+          operation: 'update'
+          uuid: 'activities-device-uuid'
+          data:
+            'genisys.activities.endSkype.people': []
+      ]
