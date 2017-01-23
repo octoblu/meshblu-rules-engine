@@ -6,13 +6,14 @@ branches:
   - "/^v[0-9]/"
 after_success:
 - npm run coverage
+- npm run mocha:json
 - bash <(curl -s https://codecov.io/bash)
 - bash <(curl -s https://codecov.octoblu.com/bash)
 deploy:
   provider: npm
   email: serveradmin@octoblu.com
   api_key:
-    secure: EbneJ3FS9YUd3LKfICYgi6BB9nhovG5WjlNh07A6snhIZdVHGVLkCFW4LDZ/oARoP/aZ+qWQICbNiEJv2GVfFPK7I4/5CIe995aOG7GhBptoTNmSLYM2V70CM68s00uowX527TjLg/URiRPNbskrrmsNKIQKqqZkkhqXKAP8OgPvdel4I47B72Gi49IBk0sh+eR11AaSrD2952mLYAbBOhpwXzKMrJA3o/UehKUUMc3kAu86xJMfzthmjOjdx3JirWlLDEKXmASQ3O6UWMGdTghHwZtMMpWztocF6ODESMajMw/0eWJ4eBUcViUfEYcavOg0owa4d2DR6+2ID+6rBSitOhfHZEq7uY7eqagC87qIn10X017Z88VqHzMP+35rLIuHxjSR4fv6zxCdob+Rxr4VNL4N3OUevIPHupQBL6KF3+hbquUuyAGIRHbC8o/7ZoLe+DFDxRa6IPaAJX860TLbFsw0qX1Z7BTFAGbmUBRQbEMnzJJuPzhkLUU4bLw/E7ARrnB/HVRa4xVPSbTjFNY+qy2NL40eiLL4WXKCaR/RtEr1uzPWPmXMajb8r+bppZnwPRYr6aO50S2B3jMAlRV4g+BxOaiWE00Rs4nSF7UgIVFs7MhtuagPIrvEMeZAr8FVI/oGz7QY1obeyCYlGHfMNssPcUyk77ae7t7l1Qw=
+    secure: gE6OmpOCkkeuw4/kWhSbuCIdllolItjubssn0zhNR5fIMlVcRlpHe2kp4TFde/Ggd0+M7DmNvNzUycqT6N7nLzQFS1e5h6WbEISP4/vSHai9FZ3dQSSXKdPaxDYHhD0SeHTdz6FsLgBKT5CL2kg1B+96DJPC9D5JsvMb0LtKtaZdN+9FY8qvNSaFEv8yXvrQhZFUEFTP5DrNGZQ+CuEDZIe8cr5x8J6/4QJXMPpTa9CwNj4FqUvpawlPlVA1mnf9k3FiIW180gebKUwsg2qHiN3GPMXd99wl1deCh18sq8HL9V5WVDvF+YAmK52Pg0T+GrCSP5gvJ+f89l9HRk/Y1xb57AexSbDSXVmeUHME4wiK4TPpGAdlvnXyJ+IxwsyBp45bNquJeWs5xNfRhhKSFN8gRqV8hzBj/RVLhEkh8WLzG/rVf+xBBiSMuQkBQcaCmKhlrNseLwZ7rY0K30ZRb2jsiJqbntMmSsElgwUblZzP5LS54J4t4map3aFPdxVO47wl+hEOj1X/3PdKPi7o6FrHpE2tPOmv9tmsjhPVyP1+GO290K0xF6T83XvLMvVrRF13xWMko7s7mkSFbuqQo24kgFDPa//8sT/UWtznn5r+0TK/aEtNfaQRObhulXuEuc+mX77cQ5FNeKYczDyaFCvJZS8m0GLReUutM9QbwZE=
   on:
     tags: true
     branches: true
