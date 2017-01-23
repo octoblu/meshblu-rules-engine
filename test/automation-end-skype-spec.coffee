@@ -2,7 +2,7 @@ MeshbluRulesEngine  = require '../src/models/meshblu-rules-engine'
 EndSkypeConfig      = require '../rules/end-skype.cson'
 {rules, noevents}   = EndSkypeConfig
 
-describe.only 'End Skype', ->
+xdescribe 'End Skype', ->
   beforeEach ->
 
     @sut = new MeshbluRulesEngine EndSkypeConfig

@@ -2,7 +2,7 @@ MeshbluRulesEngine    = require '../src/models/meshblu-rules-engine'
 StartSkypeConfig      = require '../rules/start-skype.cson'
 {rules, noevents}      = StartSkypeConfig
 
-describe 'Start Skype', ->
+xdescribe 'Start Skype', ->
   beforeEach ->
 
     @sut = new MeshbluRulesEngine StartSkypeConfig

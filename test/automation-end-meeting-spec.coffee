@@ -2,7 +2,7 @@ MeshbluRulesEngine  = require '../src/models/meshblu-rules-engine'
 EndMeeting          = require '../rules/end-meeting.cson'
 {rules}             = EndMeeting
 
-describe 'End Meeting', ->
+xdescribe 'End Meeting', ->
   beforeEach ->
 
     @sut = new MeshbluRulesEngine EndMeeting
