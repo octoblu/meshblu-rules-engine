@@ -1,36 +1,42 @@
 rules:
-  add:
-    conditions:
-      all: [{
-        fact: 'device'
-        path: '.genisys.currentMeeting'
-        operator: 'exists'
-        value: true
-      },{
-        fact: 'device'
-        path: '.genisys.inSkype'
-        operator: 'notEqual'
-        value: true
-      }]
-    event:
-      type: 'meshblu'
-      params:
-        uuid: "{{genisys.devices.activities}}"
-        operation: 'update'
-        data:
-          $set:
-            "genisys.activities.startSkype":
-              title: "Start Skype",
-              jobType: "start-skype",
-              meetingId: "{{genisys.currentMeeting.meetingId}}",
-              people: "{{genisys.people.byAttendee.isAttendee}}"
-
+	add:
+		conditions:
+			all: [
+				{
+					fact: "device"
+					path: ".genisys.currentMeeting"
+					operator: "exists"
+					value: true
+				}
+				{
+					fact: "device"
+					path: ".genisys.inSkype"
+					operator: "notEqual"
+					value: true
+				}
+			]
+		event:
+			type: "meshblu"
+			params:
+				uuid: "{{genisys.devices.activities}}"
+				as: "{{uuid}}"
+				operation: "update"
+				data:
+					$set:
+						"genisys.activities.startSkype":
+							title: "Start Skype"
+							jobType: "start-skype"
+							meetingId: "{{genisys.currentMeeting.meetingId}}"
+							people: "{{genisys.people.byAttendee.isAttendee}}"
 noevents: [
-  type: 'meshblu'
-  params:
-    uuid: "{{genisys.devices.activities}}"
-    operation: 'update'
-    data:
-      $set:
-        "genisys.activities.startSkype.people": []
+	{
+		type: "meshblu"
+		params:
+			operation: "update"
+			uuid: "{{genisys.devices.activities}}"
+			as: "{{uuid}}"
+			data:
+				$unset:
+					"genisys.activities.startSkype": true
+	}
 ]

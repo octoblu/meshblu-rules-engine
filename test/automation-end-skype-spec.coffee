@@ -12,6 +12,7 @@ describe 'End Skype', ->
     describe ' and does not have a currentMeeting', ->
       beforeEach (done) ->
         room =
+          uuid: 'some-room-group-uuid'
           genisys:
             peopleInRoom: [ 'nobody' ]
             inSkype: true
@@ -27,6 +28,7 @@ describe 'End Skype', ->
           params:
             operation: 'update'
             uuid: 'activities-device-uuid'
+            as: 'some-room-group-uuid'
             data:
               $set: 'genisys.activities.endSkype':
                 title: 'End Skype'
@@ -37,6 +39,7 @@ describe 'End Skype', ->
     describe ' and has a currentMeeting', ->
       beforeEach (done) ->
         room =
+          uuid: 'some-room-group-uuid'
           genisys:
             devices:
               activities: 'activities-device-uuid'
@@ -56,6 +59,7 @@ describe 'End Skype', ->
           params:
             operation: 'update'
             uuid: 'activities-device-uuid'
+            as: 'some-room-group-uuid'
             data:
               $set: 'genisys.activities.endSkype':
                 title: 'End Skype'
@@ -67,6 +71,7 @@ describe 'End Skype', ->
   describe 'when the room is not in skype', ->
     beforeEach (done) ->
       room =
+        uuid: 'some-room-group-uuid'
         genisys:
           inSkype: false
           devices:
@@ -81,6 +86,7 @@ describe 'End Skype', ->
         params:
           operation: 'update'
           uuid: 'activities-device-uuid'
-          data:
-            'genisys.activities.endSkype.people': []
+          as: 'some-room-group-uuid'
+          data: $unset:
+            'genisys.activities.endSkype': true
       ]

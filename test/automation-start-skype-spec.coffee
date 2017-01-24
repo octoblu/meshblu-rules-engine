@@ -10,6 +10,7 @@ describe 'Start Skype', ->
   describe 'when the room is not in skype and has a currentMeeting', ->
     beforeEach (done) ->
       room =
+        uuid: 'some-room-group-uuid'
         genisys:
           currentMeeting:
             meetingId: 'current-meeting-uuid'
@@ -31,6 +32,7 @@ describe 'Start Skype', ->
         params:
           operation: 'update'
           uuid: 'activities-device-uuid'
+          as: 'some-room-group-uuid'
           data:
             $set:
               "genisys.activities.startSkype":
@@ -48,6 +50,7 @@ describe 'Start Skype', ->
     describe ' and has a currentMeeting', ->
       beforeEach (done) ->
         room =
+          uuid: 'some-room-group-uuid'
           genisys:
             inSkype: true
             currentMeeting:
@@ -69,15 +72,17 @@ describe 'Start Skype', ->
           type: 'meshblu'
           params:
             uuid: "activities-device-uuid"
+            as: 'some-room-group-uuid'
             operation: 'update'
             data:
-              $set:
-                "genisys.activities.startSkype.people": []
+              $unset:
+                "genisys.activities.startSkype": true
         ]
 
     describe ' and has no currentMeeting', ->
       beforeEach (done) ->
         room =
+          uuid: 'some-room-group-uuid'
           genisys:
             inSkype: true
             devices:
@@ -91,8 +96,9 @@ describe 'Start Skype', ->
           type: 'meshblu'
           params:
             uuid: "activities-device-uuid"
+            as: 'some-room-group-uuid'
             operation: 'update'
             data:
-              $set:
-                "genisys.activities.startSkype.people": []
+              $unset:
+                "genisys.activities.startSkype": true
         ]

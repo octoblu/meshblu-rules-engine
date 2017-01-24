@@ -10,6 +10,7 @@ describe 'End Meeting', ->
   describe 'when the room is not in skype and has a currentMeeting', ->
     beforeEach (done) ->
       room =
+        uuid: 'some-room-group-uuid'
         genisys:
           devices:
             activities: 'some-activities-device-uuid'
@@ -29,6 +30,7 @@ describe 'End Meeting', ->
         params:
           operation: 'update'
           uuid: 'some-activities-device-uuid'
+          as: 'some-room-group-uuid'
           data:
             $set: 'genisys.activities.endMeeting':
               title: 'End Meeting'
