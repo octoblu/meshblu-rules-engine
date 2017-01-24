@@ -5,11 +5,10 @@ RefResolver = require 'meshblu-json-schema-resolver'
 class MeshbluRulesEngine
   constructor: ({@rulesConfig, @meshbluConfig})->
 
-    @engine = new Engine
-    @engine.addOperator 'exists', @_existentialOperator
-    _.each @rulesConfig.rules, (rule) => @engine.addRule rule
+    @engine = new Engine _.values @rulesConfig.rules
+    @engine.addOperator 'exists', @_existentialOperator    
 
-  run: ({data, metadata, device}, callback) =>
+  run: ({data={}, metadata={}, device={}}, callback) =>
     resolver = new RefResolver {@meshbluConfig}
     resolver.resolve {data, metadata, device}, (error, resolved) =>
       return callback error if error?
