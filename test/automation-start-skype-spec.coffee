@@ -5,7 +5,7 @@ StartSkypeConfig      = require '../rules/start-skype.cson'
 describe 'Start Skype', ->
   beforeEach ->
 
-    @sut = new MeshbluRulesEngine StartSkypeConfig
+    @sut = new MeshbluRulesEngine rulesConfig: StartSkypeConfig
 
   describe 'when the room is not in skype and has a currentMeeting', ->
     beforeEach (done) ->
@@ -23,7 +23,7 @@ describe 'Start Skype', ->
                 {uuid: 'person-2'}
               ]
 
-      @sut.run room, (error, @results) =>
+      @sut.run data: room, (error, @results) =>
         done error
 
     it 'should return results', ->
@@ -64,7 +64,7 @@ describe 'Start Skype', ->
                   {uuid: 'person-2'}
                 ]
 
-        @sut.run room, (error, @results) =>
+        @sut.run data: room, (error, @results) =>
           done error
 
       it 'should return results', ->
@@ -88,7 +88,7 @@ describe 'Start Skype', ->
             devices:
               activities: 'activities-device-uuid'
 
-        @sut.run room, (error, @results) =>
+        @sut.run data: room, (error, @results) =>
           done error
 
       it 'should return results', ->

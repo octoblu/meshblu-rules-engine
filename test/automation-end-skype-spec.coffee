@@ -5,7 +5,7 @@ EndSkypeConfig      = require '../rules/end-skype.cson'
 describe 'End Skype', ->
   beforeEach ->
 
-    @sut = new MeshbluRulesEngine EndSkypeConfig
+    @sut = new MeshbluRulesEngine rulesConfig: EndSkypeConfig
 
   describe 'when the room is in skype', ->
 
@@ -19,7 +19,7 @@ describe 'End Skype', ->
             devices:
               activities: 'activities-device-uuid'
 
-        @sut.run room, (error, @results) =>
+        @sut.run data: room, (error, @results) =>
           done error
 
       it 'should return results', ->
@@ -50,7 +50,7 @@ describe 'End Skype', ->
               byAttendee:
                 isAttendee: [ 'your-mom' ]
 
-        @sut.run room, (error, @results) =>
+        @sut.run data: room, (error, @results) =>
           done error
 
       it 'should return results', ->
@@ -77,7 +77,7 @@ describe 'End Skype', ->
           devices:
             activities: 'activities-device-uuid'
 
-      @sut.run room, (error, @results) =>
+      @sut.run data: room, (error, @results) =>
         done error
 
     it 'should return results', ->

@@ -3,13 +3,13 @@ rules:
 		conditions:
 			all: [
 				{
-					fact: "device"
+					fact: "data"
 					path: ".genisys.currentMeeting"
 					operator: "exists"
 					value: true
 				}
 				{
-					fact: "device"
+					fact: "data"
 					path: ".genisys.inSkype"
 					operator: "notEqual"
 					value: true
@@ -18,23 +18,23 @@ rules:
 		event:
 			type: "meshblu"
 			params:
-				uuid: "{{genisys.devices.activities}}"
-				as: "{{uuid}}"
+				uuid: "{{data.genisys.devices.activities}}"
+				as: "{{data.uuid}}"
 				operation: "update"
 				data:
 					$set:
 						"genisys.activities.startSkype":
 							title: "Start Skype"
 							jobType: "start-skype"
-							meetingId: "{{genisys.currentMeeting.meetingId}}"
-							people: "{{genisys.people.byAttendee.isAttendee}}"
+							meetingId: "{{data.genisys.currentMeeting.meetingId}}"
+							people: "{{data.genisys.people.byAttendee.isAttendee}}"
 noevents: [
 	{
 		type: "meshblu"
 		params:
 			operation: "update"
-			uuid: "{{genisys.devices.activities}}"
-			as: "{{uuid}}"
+			uuid: "{{data.genisys.devices.activities}}"
+			as: "{{data.uuid}}"
 			data:
 				$unset:
 					"genisys.activities.startSkype": true

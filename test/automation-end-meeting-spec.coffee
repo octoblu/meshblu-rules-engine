@@ -5,7 +5,7 @@ EndMeeting          = require '../rules/end-meeting.cson'
 describe 'End Meeting', ->
   beforeEach ->
 
-    @sut = new MeshbluRulesEngine EndMeeting
+    @sut = new MeshbluRulesEngine rulesConfig: EndMeeting
 
   describe 'when the room is not in skype and has a currentMeeting', ->
     beforeEach (done) ->
@@ -21,7 +21,7 @@ describe 'End Meeting', ->
             byAttendee:
               isAttendee: [ 'conference-people' ]
 
-      @sut.run room, (error, @results) =>
+      @sut.run data: room, (error, @results) =>
         done error
 
     it 'should return results', ->
