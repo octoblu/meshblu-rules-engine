@@ -1,6 +1,6 @@
 {
   "name": "meshblu-rules-engine",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Rules for transforming devices in Meshblu based off of events",
   "main": "index.js",
   "scripts": {
@@ -54,6 +54,6 @@
     "fs-cson": "^0.3.2",
     "json-rules-engine": "~1.4.0",
     "lodash": "^4.17.4",
-    "meshblu-json-schema-resolver": "^1.2.0"
+    "meshblu-json-schema-resolver": "^1.2.1"
   }
 }
