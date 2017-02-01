@@ -1,0 +1,30 @@
+if:
+	hugh:
+		conditions:
+			all: [
+				{
+					fact: "data"
+					path: ".president"
+					operator: "equal"
+					value: "HUGH"
+				}
+			]
+		event:
+			type: "info"
+			params:
+				text: "small hands"
+else:
+	spy:
+		conditions:
+			all: [
+				{
+					fact: "data"
+					path: ".spy"
+					operator: "exists"
+					value: true
+				}
+			]
+		event:
+			type: "info"
+			params:
+				text: "send in the TLAs"
