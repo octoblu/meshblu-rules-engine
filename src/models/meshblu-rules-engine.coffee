@@ -4,29 +4,22 @@ christacheio = require 'christacheio'
 RefResolver = require 'meshblu-json-schema-resolver'
 class MeshbluRulesEngine
   constructor: ({@rulesConfig, @meshbluConfig})->
-    @engine = new Engine _.concat(_.values(@rulesConfig.if), _.values(@rulesConfig.rules))
-    @_addOperators @engine
 
   run: ({data={}, metadata={}, device={}}, callback) =>
     resolver = new RefResolver {@meshbluConfig}
-    resolver.resolve {data, metadata, device}, (error, resolved) =>
+    resolver.resolve { data, metadata, device }, (error, resolved) =>
       return callback error if error?
-      @engine
-        .run resolved
-        .then (events) =>
-          return callback null, @_templateEvents {resolved, events} unless _.isEmpty events
-          @_runElse {resolved}, callback
-        .catch (error) => callback error
+      @_runEngine {resolved, rules: @rulesConfig.if}, (error, events) =>
+        return callback error, events if (error? || !_.isEmpty(events))
+        @_runEngine {resolved, rules: @rulesConfig.else}, callback
     return null
 
-  _runElse: ({resolved}, callback) =>
-    elseEngine = new Engine _.values(@rulesConfig.else)
-    @_addOperators elseEngine
-    elseEngine
+  _runEngine: ({resolved, rules}, callback) =>
+    engine = new Engine _.values(rules)
+    @_addOperators engine
+    engine
       .run resolved
-      .then (events) =>
-        events = @rulesConfig.noevents || [] if _.isEmpty events
-        return callback null, @_templateEvents {resolved, events}
+      .then (events) => return callback null, @_templateEvents {resolved, events}
       .catch (error) => callback error
 
   _templateEvents: ({resolved, events}) =>

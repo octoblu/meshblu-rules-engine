@@ -1,4 +1,4 @@
-rules:
+if:
 	addPeopleInRoom:
 		conditions:
 			all: [
@@ -56,15 +56,22 @@ rules:
 							jobType: "end-skype"
 							meetingId: "{{data.genisys.currentMeeting.meetingId}}"
 							people: "{{data.genisys.people.byAttendee.isAttendee}}"
-noevents: [
-	{
-		type: "meshblu"
-		params:
-			operation: "update"
-			uuid: "{{data.genisys.devices.activities}}"
-			as: "{{data.uuid}}"
-			data:
-				$unset:
-					"genisys.activities.endSkype": true
-	}
-]
+else:
+	unset:
+		conditions:
+			all: [
+				{
+					fact: "data"
+					operator: "exists"
+					value: true
+				}
+			]
+		event:
+			type: "meshblu"
+			params:
+				operation: "update"
+				uuid: "{{data.genisys.devices.activities}}"
+				as: "{{data.uuid}}"
+				data:
+					$unset:
+						"genisys.activities.endSkype": true
