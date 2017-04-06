@@ -1,6 +1,6 @@
 {
   "name": "meshblu-rules-engine",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Rules for transforming devices in Meshblu based off of events",
   "main": "index.js",
   "scripts": {
@@ -34,9 +34,9 @@
     "mocha": "^3.2.0",
     "mocha-multi": "^0.10.0",
     "mocha-osx-reporter": "^0.1.2",
-    "nyc": "^10.1.2",
-    "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0"
+    "nyc": "^10.2.0",
+    "sinon": "^2.1.0",
+    "sinon-chai": "^2.9.0"
   },
   "nyc": {
     "cache": true,
@@ -54,6 +54,6 @@
     "fs-cson": "^0.3.2",
     "json-rules-engine": "~1.4.0",
     "lodash": "^4.17.4",
-    "meshblu-json-schema-resolver": "^2.0.4"
+    "meshblu-json-schema-resolver": "^2.0.5"
   }
 }
