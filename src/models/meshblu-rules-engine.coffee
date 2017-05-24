@@ -23,7 +23,7 @@ class MeshbluRulesEngine
       .catch (error) => callback error
 
   _templateEvents: ({resolved, events}) =>
-    _.map events, (event) => christacheio event, resolved
+    _.map events, (event) => christacheio event, resolved, recurseDepth: 5
 
   _addOperators: (engine) =>
     engine.addOperator 'exists', @_existentialOperator
