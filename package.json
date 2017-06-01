@@ -1,6 +1,6 @@
 {
   "name": "meshblu-rules-engine",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Rules for transforming devices in Meshblu based off of events",
   "main": "index.js",
   "scripts": {
@@ -50,6 +50,7 @@
     ]
   },
   "dependencies": {
+    "async": "^2.4.1",
     "christacheio": "^3.1.1",
     "fs-cson": "^0.3.2",
     "json-rules-engine": "~1.4.0",

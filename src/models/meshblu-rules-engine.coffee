@@ -1,13 +1,18 @@
-_ = require 'lodash'
-{Engine} = require 'json-rules-engine'
+_            = require 'lodash'
+async        = require 'async'
+{Engine}     = require 'json-rules-engine'
 christacheio = require 'christacheio'
-RefResolver = require 'meshblu-json-schema-resolver'
+RefResolver  = require 'meshblu-json-schema-resolver'
 class MeshbluRulesEngine
   constructor: ({@rulesConfig, @meshbluConfig})->
 
   run: ({data={}, metadata={}, device={}}, callback) =>
     resolver = new RefResolver {@meshbluConfig}
-    resolver.resolve { data, metadata, device }, (error, resolved) =>
+    async.parallel {
+      data: async.apply resolver.resolve, data
+      metadata: async.apply resolver.resolve, metadata
+      device: async.apply resolver.resolve, device
+    }, (error, resolved) =>
       return callback error if error?
       @_runEngine {resolved, rules: @rulesConfig.if}, (error, events) =>
         return callback error, events if (error? || !_.isEmpty(events))
