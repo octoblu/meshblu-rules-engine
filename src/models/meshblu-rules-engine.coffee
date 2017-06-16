@@ -3,21 +3,27 @@ async        = require 'async'
 {Engine}     = require 'json-rules-engine'
 christacheio = require 'christacheio'
 RefResolver  = require 'meshblu-json-schema-resolver'
+
 class MeshbluRulesEngine
-  constructor: ({@rulesConfig, @meshbluConfig})->
+  constructor: ({@rulesConfig, @meshbluConfig, @skipRefResolver})->
 
   run: ({data={}, metadata={}, device={}}, callback) =>
-    resolver = new RefResolver {@meshbluConfig}
     async.parallel {
-      data: async.apply resolver.resolve, data
-      metadata: async.apply resolver.resolve, metadata
-      device: async.apply resolver.resolve, device
+      data: async.apply @_resolve, data
+      metadata: async.apply @_resolve, metadata
+      device: async.apply @_resolve, device
     }, (error, resolved) =>
       return callback error if error?
       @_runEngine {resolved, rules: @rulesConfig.if}, (error, events) =>
         return callback error, events if (error? || !_.isEmpty(events))
         @_runEngine {resolved, rules: @rulesConfig.else}, callback
     return null
+
+  _resolve: (obj, callback) =>
+    return callback null, obj if @skipRefResolver
+
+    resolver = new RefResolver {@meshbluConfig}
+    resolver.resolve obj, callback
 
   _runEngine: ({resolved, rules}, callback) =>
     engine = new Engine _.values(rules)
