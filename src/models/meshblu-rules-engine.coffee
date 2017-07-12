@@ -7,11 +7,12 @@ RefResolver  = require 'meshblu-json-schema-resolver'
 class MeshbluRulesEngine
   constructor: ({@rulesConfig, @meshbluConfig, @skipRefResolver})->
 
-  run: ({data={}, metadata={}, device={}}, callback) =>
+  run: ({data={}, metadata={}, device={}, fromDevice={}}, callback) =>
     async.parallel {
       data: async.apply @_resolve, data
       metadata: async.apply @_resolve, metadata
       device: async.apply @_resolve, device
+      fromDevice: async.apply @_resolve, fromDevice
     }, (error, resolved) =>
       return callback error if error?
       @_runEngine {resolved, rules: @rulesConfig.if}, (error, events) =>
