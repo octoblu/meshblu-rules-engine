@@ -3,6 +3,7 @@ async        = require 'async'
 {Engine}     = require 'json-rules-engine'
 christacheio = require 'christacheio'
 RefResolver  = require 'meshblu-json-schema-resolver'
+moment       = require 'moment'
 
 class MeshbluRulesEngine
   constructor: ({@rulesConfig, @meshbluConfig, @skipRefResolver})->
@@ -39,8 +40,15 @@ class MeshbluRulesEngine
 
   _addOperators: (engine) =>
     engine.addOperator 'exists', @_existentialOperator
+    engine.addOperator 'minutesUntil', @_minutesUntilOperator
 
   _existentialOperator: (factValue, jsonValue) =>
     return (factValue != undefined) == jsonValue
+
+  _minutesUntilOperator: (factValue, jsonValue) =>
+    currentTime = moment().utc()
+    startTime = moment(factValue)
+    distance = startTime.diff(currentTime, 'minutes')
+    return (distance <= jsonValue)
 
 module.exports = MeshbluRulesEngine

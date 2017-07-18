@@ -1,0 +1,15 @@
+if:
+	minutes:
+		conditions:
+			all: [
+				{
+					fact: "data"
+					path: ".then"
+					operator: "minutesUntil"
+					value: 6
+				}
+			]
+		event:
+			type: "info"
+			params:
+				text: "flux capacitor"
