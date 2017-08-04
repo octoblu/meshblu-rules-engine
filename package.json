@@ -1,6 +1,6 @@
 {
   "name": "meshblu-rules-engine",
-  "version": "3.5.1",
+  "version": "4.0.0",
   "description": "Rules for transforming devices in Meshblu based off of events",
   "main": "index.js",
   "scripts": {
@@ -27,16 +27,16 @@
   },
   "homepage": "https://github.com/octoblu/meshblu-rules-engine#readme",
   "devDependencies": {
-    "chai": "^4.0.2",
+    "chai": "^4.1.0",
     "chai-subset": "^1.5.0",
-    "coffee-script": "^1.12.6",
+    "coffee-script": "^1.12.7",
     "env-test": "^1.0.0",
-    "mocha": "^3.4.2",
+    "mocha": "^3.5.0",
     "mocha-multi": "^0.11.0",
     "mocha-osx-reporter": "^0.1.2",
-    "nyc": "^11.0.2",
-    "sinon": "^2.3.2",
-    "sinon-chai": "^2.10.0"
+    "nyc": "^11.1.0",
+    "sinon": "^3.0.0",
+    "sinon-chai": "^2.12.0"
   },
   "nyc": {
     "cache": true,
@@ -50,12 +50,12 @@
     ]
   },
   "dependencies": {
-    "async": "^2.4.1",
+    "async": "^2.5.0",
     "christacheio": "^3.1.1",
     "fs-cson": "^0.3.2",
-    "json-rules-engine": "^2.0.0",
+    "json-rules-engine": "^2.0.2",
     "lodash": "^4.17.4",
-    "meshblu-json-schema-resolver": "^2.2.0",
+    "meshblu-json-schema-resolver": "^3.0.0",
     "moment": "^2.18.1"
   }
 }
