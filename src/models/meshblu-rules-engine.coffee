@@ -9,6 +9,12 @@ class MeshbluRulesEngine
   constructor: ({@rulesConfig, @meshbluConfig, @skipRefResolver})->
 
   run: ({data={}, metadata={}, device={}, fromDevice={}}, callback) =>
+    unref = {
+      data,
+      metadata,
+      device,
+      fromDevice
+    }
     async.parallel {
       data: async.apply @_resolve, data
       metadata: async.apply @_resolve, metadata
@@ -16,9 +22,10 @@ class MeshbluRulesEngine
       fromDevice: async.apply @_resolve, fromDevice
     }, (error, resolved) =>
       return callback error if error?
-      @_runEngine {resolved, rules: @rulesConfig.if}, (error, events) =>
+      options = _.merge resolved, {unref}
+      @_runEngine {options, rules: @rulesConfig.if}, (error, events) =>
         return callback error, events if (error? || !_.isEmpty(events))
-        @_runEngine {resolved, rules: @rulesConfig.else}, callback
+        @_runEngine {options, rules: @rulesConfig.else}, callback
     return null
 
   _resolve: (obj, callback) =>
@@ -27,16 +34,16 @@ class MeshbluRulesEngine
     resolver = new RefResolver {@meshbluConfig}
     resolver.resolve obj, callback
 
-  _runEngine: ({resolved, rules}, callback) =>
+  _runEngine: ({options, rules}, callback) =>
     engine = new Engine _.values(rules)
     @_addOperators engine
     engine
-      .run resolved
-      .then (events) => return callback null, @_templateEvents {resolved, events}
+      .run options
+      .then (events) => return callback null, @_templateEvents {options, events}
       .catch (error) => callback error
 
-  _templateEvents: ({resolved, events}) =>
-    _.map events, (event) => christacheio event, resolved, recurseDepth: 5
+  _templateEvents: ({options, events}) =>
+    _.map events, (event) => christacheio event, options, recurseDepth: 5
 
   _addOperators: (engine) =>
     engine.addOperator 'exists', @_existentialOperator
