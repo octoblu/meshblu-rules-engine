@@ -23,7 +23,7 @@ describe 'End Skype', ->
           done error
 
       it 'should return results', ->
-        expect(@results.events).to.deep.equal [
+        expect(@results).to.deep.equal [
           type: 'meshblu'
           params:
             operation: 'update'
@@ -54,7 +54,7 @@ describe 'End Skype', ->
           done error
 
       it 'should return results', ->
-        expect(@results.events).to.deep.equal [
+        expect(@results).to.deep.equal [
           type: 'meshblu'
           params:
             operation: 'update'
@@ -81,7 +81,7 @@ describe 'End Skype', ->
         done error
 
     it 'should return results', ->
-      expect(@results.events).to.deep.equal [
+      expect(@results).to.deep.equal [
         type: 'meshblu'
         params:
           operation: 'update'

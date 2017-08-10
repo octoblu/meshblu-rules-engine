@@ -15,7 +15,7 @@ describe 'If/Else', ->
         done error
 
     it 'should return results', ->
-      expect(@results.events).to.deep.equal [
+      expect(@results).to.deep.equal [
         type: "info"
         params:
         	text: "small hands"
@@ -31,7 +31,7 @@ describe 'If/Else', ->
         done error
 
     it 'should return proper results', ->
-      expect(@results.events).to.deep.equal [
+      expect(@results).to.deep.equal [
         type: "info"
         params:
         	text: "send in the TLAs"
@@ -47,4 +47,4 @@ describe 'If/Else', ->
         done error
 
     it 'should return no results', ->
-      expect(@results.events).to.deep.equal []
+      expect(@results).to.deep.equal []
