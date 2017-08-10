@@ -23,8 +23,8 @@ class MeshbluRulesEngine
     }, (error, resolved) =>
       return callback error if error?
       options = _.merge resolved, {unref}
-      @_runEngine {options, rules: @rulesConfig.if}, (error, events) =>
-        return callback error, events if (error? || !_.isEmpty(events))
+      @_runEngine {options, rules: @rulesConfig.if}, (error, results) =>
+        return callback error, results if (error? || !_.isEmpty(results.events))
         @_runEngine {options, rules: @rulesConfig.else}, callback
     return null
 
@@ -39,11 +39,13 @@ class MeshbluRulesEngine
     @_addOperators engine
     engine
       .run options
-      .then (events) => return callback null, @_templateEvents {options, events}
+      .then (rawEvents) =>
+        events = @_templateEvents {options, rawEvents}
+        return callback null, { rawEvents, events }
       .catch (error) => callback error
 
-  _templateEvents: ({options, events}) =>
-    _.map events, (event) => christacheio event, options, recurseDepth: 5
+  _templateEvents: ({options, rawEvents}) =>
+    _.map rawEvents, (event) => christacheio event, options, recurseDepth: 5
 
   _addOperators: (engine) =>
     engine.addOperator 'exists', @_existentialOperator

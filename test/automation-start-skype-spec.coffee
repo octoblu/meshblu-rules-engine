@@ -27,7 +27,7 @@ describe 'Start Skype', ->
         done error
 
     it 'should return results', ->
-      expect(@results).to.deep.equal [
+      expect(@results.events).to.deep.equal [
         type: 'meshblu'
         params:
           operation: 'update'
@@ -68,7 +68,7 @@ describe 'Start Skype', ->
           done error
 
       it 'should return results', ->
-        expect(@results).to.deep.equal [
+        expect(@results.events).to.deep.equal [
           type: 'meshblu'
           params:
             uuid: "activities-device-uuid"
@@ -92,7 +92,7 @@ describe 'Start Skype', ->
           done error
 
       it 'should return results', ->
-        expect(@results).to.deep.equal [
+        expect(@results.events).to.deep.equal [
           type: 'meshblu'
           params:
             uuid: "activities-device-uuid"

@@ -16,7 +16,7 @@ describe 'Minutes until operator', ->
         done error
 
     it 'should return true', ->
-      expect(@results).to.deep.equal [
+      expect(@results.events).to.deep.equal [
         type: "info"
         params:
         	text: "flux capacitor"
@@ -32,4 +32,4 @@ describe 'Minutes until operator', ->
         done error
 
     it 'should return false', ->
-      expect(@results).to.be.empty
+      expect(@results.events).to.be.empty
